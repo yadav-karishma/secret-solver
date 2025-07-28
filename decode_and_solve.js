@@ -1,16 +1,14 @@
 const fs = require("fs");
 const bigInt = require("big-integer");
 
-/**
- * Read and parse the JSON input file
- */
+
+//Read and parse the JSON input file
+
 function parseJSON(filePath) {
   return JSON.parse(fs.readFileSync(filePath, "utf-8"));
 }
 
-/**
- * Decode base-specific y-values and return the first k sorted points as [x, y]
- */
+// Decode base-specific y-values and return the first k sorted points as [x, y]
 function getPoints(data) {
   const { n, k } = data.keys;
   const points = [];
@@ -30,9 +28,7 @@ function getPoints(data) {
   return points.sort((a, b) => a[0] - b[0]).slice(0, k);
 }
 
-/**
- * Use Lagrange interpolation to calculate f(0) — the constant term c
- */
+// Use Lagrange interpolation to calculate f(0) — the constant term c
 function lagrangeInterpolationAtZero(points) {
   let result = bigInt.zero;
 
@@ -56,9 +52,7 @@ function lagrangeInterpolationAtZero(points) {
   return result; // This is f(0) = constant term
 }
 
-/**
- * Main solver for each JSON input file
- */
+// Main solver for each JSON input file
 function solve(filePath) {
   const data = parseJSON(filePath);
   const points = getPoints(data);
